@@ -220,7 +220,7 @@ def content_loss_func(sess, model):
         # But this form is very slow in "painting" and thus could be missing
         # out some constants (from what I see in other source code), so I'll
         # replicate the same normalization constant as used in style loss.
-        return (1 / (4 * N**2 * M**2)) * tf.reduce_sum(tf.pow(x - p, 2))
+        return (1 / (4 * N * M)) * tf.reduce_sum(tf.pow(x - p, 2))
     return _content_loss(sess.run(model['conv4_2']), model['conv4_2'])
 
 def style_loss_func(sess, model):
