@@ -141,9 +141,9 @@ def load_vgg_model(path):
         """
         Return the weights and bias from the VGG model for a given layer.
         """
-        W = vgg_layers[0][layer][0][0][0][0][0]
-        b = vgg_layers[0][layer][0][0][0][0][1]
-        layer_name = vgg_layers[0][layer][0][0][-2]
+        W = vgg_layers[0][layer][0][0][2][0][0]
+        b = vgg_layers[0][layer][0][0][2][0][1]
+        layer_name = vgg_layers[0][layer][0][0][0]
         assert layer_name == expected_layer_name
         return W, b
 
@@ -161,7 +161,7 @@ def load_vgg_model(path):
         """
         W, b = _weights(layer, layer_name)
         W = tf.constant(W)
-        b = tf.constant(np.reshape(b, (b.size)))
+        b = tf.constant(b.T)
         return tf.nn.conv2d(
             prev_layer, filter=W, strides=[1, 1, 1, 1], padding='SAME') + b
 
